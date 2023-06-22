@@ -3,7 +3,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 
-driver = webdriver.Firefox()
 
 def click (element,driver):
     actions = ActionChains(driver) 
@@ -11,14 +10,11 @@ def click (element,driver):
     actions.click() 
     actions.perform()
 
-
-
 def get_matrix(weight,hight):
     #array[weight][hight]
     array = [[0]* weight for i in range(hight)]
     for x in range(weight):
         for y in range(hight):
-            
             index = x * weight + y
             index = "tile"+str(index)
             element = driver.find_element(By.ID,index)
