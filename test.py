@@ -36,8 +36,14 @@ actions.perform()
 
 src_2 = element.get_attribute("src")
 
-all_id = []
 
+num_elements = 81
+
+for idx in range(num_elements):
+    element_id = f'tile{idx}'
+    element = board.find_element(By.ID, element_id)
+    image_data = element.get_attribute('src')
+all_id = []
 
 
 
