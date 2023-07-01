@@ -1,8 +1,3 @@
-from selenium import webdriver 
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-
-
 
 def click (element,driver):
     actions = ActionChains(driver) 
@@ -10,11 +5,14 @@ def click (element,driver):
     actions.click() 
     actions.perform()
 
+
+
 def get_matrix(weight,hight):
     #array[weight][hight]
     array = [[0]* weight for i in range(hight)]
     for x in range(weight):
         for y in range(hight):
+            
             index = x * weight + y
             index = "tile"+str(index)
             element = driver.find_element(By.ID,index)
@@ -27,8 +25,12 @@ def get_matrix(weight,hight):
 
     
     # element.get_attribute("src")
-    
-get_matrix(9,9)
+
+
+t5 = "BAAAAAQAgMAAABinRfyAAAACVBMVEW9vb3///97e3uVBMaVAAAAHklEQVQI12MIDQ0NARFBDAEMDFzkEl6rVq1i0AISAIlSC03msuDYAAAAAElFTkSuQmCC "
+for i in range(len(t5)):
+    if t5[i] == "3":
+        print(i)
 
 
 
@@ -42,10 +44,12 @@ img_to_numbers = {
 "L":6,
 "w":7,
 "E":8,
-"3":10}
+"3":9}
+# 97
 
-
-def img_to_nums(char: str) -> int:
+def img_to_nums(char) -> int:
+    char = char[144]
     return img_to_numbers.get(char)
 
-
+a = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEW9vb3///97e3uVBMaVAAAAHklEQVQI12MIDQ0NARFBDAEMDFzkEl6rVq1i0AISAIlSC03msuDYAAAAAElFTkSuQmCC "
+print(img_to_nums(a))

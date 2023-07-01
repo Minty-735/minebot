@@ -1,9 +1,9 @@
-from selenium import webdriver
+# from selenium import webdriver
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.action_chains import ActionChains # импортируем класс ActionChains из модуля action_chains
 from selenium.webdriver.common.by import By
-from bs4 import BeautifulSoup
-from random import randint
+# from bs4 import BeautifulSoup
+# from random import randint
 from time import sleep
 
 url = 'https://сапёр.com/' #ссылка на сайт
@@ -12,8 +12,8 @@ url = 'https://сапёр.com/' #ссылка на сайт
 # driver = webdriver.Firefox()
 driver = Firefox()
 driver.get(url)
-html = driver.page_source
-soup = BeautifulSoup(html, 'html.parser')
+# html = driver.page_source
+# soup = BeautifulSoup(html, 'html.parser')
 
 
 element = driver.find_element(By.ID,"tile1")
