@@ -1,4 +1,5 @@
 
+
 def get_neighbors(x, y, width, height):
     neighbors = []
 
@@ -17,6 +18,7 @@ def get_neighbor_values(x, y, board):
     neighbors = get_neighbors(x, y, width, height)
     neighbor_values = [board[nx][ny] for nx, ny in neighbors]
     return neighbor_values
+    
 def get_adjacent_element(x, y, choice, board):
     width, height = len(board[0]), len(board)
 
@@ -61,10 +63,8 @@ def get_adjacent_coordinates(x, y, choice, board):
     return (new_x, new_y)  # Возвращаем координаты ячейки, если все в порядке
 
 
-# a  =neighbor_values = get_neighbor_values(1, 4, board)
-# # print(a.index(9))
-# print(a)
 
+number_to_click =[]
 def work(weight,hight,board):
     print("work begin")
     mines = []
@@ -77,33 +77,28 @@ def work(weight,hight,board):
             if "F" in neighbor_values:
                 neighbor_9 += neighbor_values.count("F")
             if  neighbor_9 == board[y][x] and board[y][x] != 0:
-
-
+                c = x * weight + y
+                if neighbor_values.count("F") == board[y][x]:
+                    number_to_click.append(c)
+                    print("__________   ")
+                    print(c)
                 b = [i for i in range(len(neighbor_values)) if neighbor_values[i] == "F" or neighbor_values[i] == 9]
-   
+                # print(board[y][x])
                 for i in range(len(b)):
-                    print(x,y,b[i],sep = "       ")
                     a = get_adjacent_coordinates(x,y,b[i],board)
-                    print(a)
                     if a != None:
                         mines.append(a)
     
     mines =  set(mines)
     mines_tile = []
-    print(mines)
+    # print("-------------------------------------------")
+    # print(sorted(number_to_click))
     for (x,y) in mines:
         
         a = (x * weight + y )
         mines_tile.append("tile"+str(a))
-    print(mines_tile)
+    # print(mines_tile)
     print("work end")
-    return mines_tile
-# первое число - вертикать второе горизонталь начинаются с 0
+    return mines_tile, number_to_click
 
 
-
-# def ind(list):
-#     list.index(9)
-# l = a    
-# b = [i for i in range(len(l)) if l[i] == 9]
-# print(b)
