@@ -6,17 +6,11 @@ def get_neighbors(x, y, width, height):
     for i in range(-1, 2):
         for j in range(-1, 2):
             new_x, new_y = x + i, y + j
-            
-            # Проверь, не выходит ли новая ячейка за границы игрового поля и
-            # не является ли она той же самой ячейкой (x, y)
             if (i == 0 and j == 0) or new_x < 0 or new_y < 0 or new_x >= width or new_y >= height:
                 continue
-
-            # Если ячейка прошла проверку, добавь ее в список соседей
             neighbors.append((new_x, new_y))
-    # print(neighbors)
     return neighbors
-# print(get_neighbors(3,0,10,10))
+
 
 def get_neighbor_values(x, y, board):
     width, height = 16,16
@@ -77,24 +71,31 @@ def work(weight,hight,board):
     for y in range(weight):
         for x in range(hight):             
             neighbor_values = get_neighbor_values(y, x, board)
-            if board[y][x] == 0:
+            if board[y][x] == 0 or board[y][x] == "F" or board[y][x] == 9:
                 continue
-            if neighbor_values.count(9) == board[y][x] and board[y][x] != 0:
-                # print("FLAG")
-                # print("горизонт",y,'веритикаль',x,"mine")
-                # print("FLAG")
-                b = [i for i in range(len(neighbor_values)) if neighbor_values[i] == 9]
-                # print(b)
+            neighbor_9 = neighbor_values.count(9)
+            if "F" in neighbor_values:
+                neighbor_9 += neighbor_values.count("F")
+            if  neighbor_9 == board[y][x] and board[y][x] != 0:
+
+
+                b = [i for i in range(len(neighbor_values)) if neighbor_values[i] == "F" or neighbor_values[i] == 9]
+   
                 for i in range(len(b)):
+                    print(x,y,b[i],sep = "       ")
                     a = get_adjacent_coordinates(x,y,b[i],board)
+                    print(a)
                     if a != None:
                         mines.append(a)
+    
     mines =  set(mines)
-    print(mines)
     mines_tile = []
-    for i in mines:
-        a = (i[0] * weight + i[1] )
+    print(mines)
+    for (x,y) in mines:
+        
+        a = (x * weight + y )
         mines_tile.append("tile"+str(a))
+    print(mines_tile)
     print("work end")
     return mines_tile
 # первое число - вертикать второе горизонталь начинаются с 0

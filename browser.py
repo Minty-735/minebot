@@ -31,7 +31,8 @@ img_to_numbers = {
 "L":6,
 "w":7,
 "E":8,
-"3":9}
+"3":9,
+"p":"F"}
 
 def img_to_nums(char) -> int:
     char = char[144]
@@ -81,8 +82,9 @@ def click_to_number(board):
     for i in range(len(board)):
         for j in range(len(board[i])):
             a = board[i][j]
-            if not(a == 0 or a == 9):
-                actions.move_to_element(driver.find_element(By.ID,"tile"+str(i*16+j))) 
+            if not(a == 0 or a == 9 or a == "F "):
+                actions.move_to_element(driver.find_element(By.ID,"tile"+str(j*16+i))) 
+                print("tile"+str(j*16+i), a)
                 actions.click() 
                 actions.perform()
     print("click_to_number end")
@@ -104,6 +106,7 @@ time.sleep(1)
 click(element,driver)
 
 
+n = 0
 time.sleep(1)
 def test():
     board = get_matrix(weight,hight)
@@ -111,9 +114,13 @@ def test():
     flag100(mines)
     click_to_number(board)
     print(mines)
+    
 
-while driver.find_element(By.ID,"tile1") != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaBAMAAABbZFH9AAAAD1BMVEW9vb17e3v//wD///8AAABXk1meAAAAaUlEQVQY043PwQnAMAgFUAMZIJINxAECXSCI+89UE2wVmkM/Xh6R4AdMadCvSMkaCH3Ak3JUVQ1VIdJXQpbpqrTCLmEmm+kiWxVXtYc9rp1/YlVX/OniteeKW753Rofod+xeMAINs0rWDW08IHwPjv9jAAAAAElFTkSuQmCC":
-    test()
+# while driver.find_element(By.ID,"face") != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaBAMAAABbZFH9AAAAD1BMVEW9vb17e3v//wD///8AAABXk1meAAAAaUlEQVQY043PwQnAMAgFUAMZIJINxAECXSCI+89UE2wVmkM/Xh6R4AdMadCvSMkaCH3Ak3JUVQ1VIdJXQpbpqrTCLmEmm+kiWxVXtYc9rp1/YlVX/OniteeKW753Rofod+xeMAINs0rWDW08IHwPjv9jAAAAAElFTkSuQmCC":
+while 1:
+    if n == 0:
+        test()
+        n = int(input()) 
 
 
 
