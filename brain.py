@@ -62,43 +62,43 @@ def get_adjacent_coordinates(x, y, choice, board):
 
     return (new_x, new_y)  # Возвращаем координаты ячейки, если все в порядке
 
-
+def get_F9(board):
+    print("get_F9 begin")
+    result = []
+    for y in range(len(board)):
+        for x in range(len(board[0])):
+            neighbor_values = get_neighbor_values(y, x, board)
+            if "F" in neighbor_values and 9 in neighbor_values:
+                c = x * len(board) + y
+                result.append(c)
+                # print(c)
+    print("get_F9 end")
+    return result
 
 number_to_click =[]
-def work(weight,hight,board):
-    print("work begin")
-    mines = []
-    for y in range(weight):
-        for x in range(hight):             
-            neighbor_values = get_neighbor_values(y, x, board)
-            if board[y][x] == 0 or board[y][x] == "F" or board[y][x] == 9:
-                continue
-            neighbor_9 = neighbor_values.count(9)
-            if "F" in neighbor_values:
-                neighbor_9 += neighbor_values.count("F")
-            if  neighbor_9 == board[y][x] and board[y][x] != 0:
-                c = x * weight + y
-                if neighbor_values.count("F") == board[y][x]:
-                    number_to_click.append(c)
-                    print("__________   ")
-                    print(c)
-                b = [i for i in range(len(neighbor_values)) if neighbor_values[i] == "F" or neighbor_values[i] == 9]
-                # print(board[y][x])
-                for i in range(len(b)):
-                    a = get_adjacent_coordinates(x,y,b[i],board)
-                    if a != None:
-                        mines.append(a)
+def work(board):
+    print("scan begin")
+    result = []
+    for y in range(len(board)):
+        for x in range(len(board[0])):
+            if board[y][x] in range(1,9):
+                neighbor_values = get_neighbor_values(y, x, board)
+                neighbor_9 = neighbor_values.count(9)
+                neighbor_F = neighbor_values.count("F")
+                if neighbor_9 == board[y][x] - neighbor_F:
+                    b = [i for i in range(len(neighbor_values)) if neighbor_values[i] == 9]
+                    for i in range(len(b)):
+                        a = get_adjacent_coordinates(x,y,b[i],board)
+                        if a != None:
+                            c = a[0] * len(board) + a[1]
+                            result.append(c)
+                            print("__________   ")
+                            print(c)
+                elif neighbor_F == board[y][x]:
+                    continue
+                else:
+                    board[y][x] -= neighbor_F
+    print("scan end")
+    click = get_F9(board)
+    return result, click
     
-    mines =  set(mines)
-    mines_tile = []
-    # print("-------------------------------------------")
-    # print(sorted(number_to_click))
-    for (x,y) in mines:
-        
-        a = (x * weight + y )
-        mines_tile.append("tile"+str(a))
-    # print(mines_tile)
-    print("work end")
-    return mines_tile, number_to_click
-
-

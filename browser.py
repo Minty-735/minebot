@@ -45,8 +45,6 @@ def get_neighbor_values(x, y, board):
     neighbor_values = [board[nx][ny] for nx, ny in neighbors]
     return neighbor_values
 
-
-
 def click (element,driver):
     actions = ActionChains(driver) 
     actions.move_to_element(element) 
@@ -77,29 +75,30 @@ def get_matrix(weight, hight):
     print("get_matrix end")
     return array
 
-
 flag_list = set()
+
 def flag100(mines):
     print("flag100 begin")
     actions = ActionChains(driver) 
     for mine_id in mines:
         if mine_id not in flag_list:
-            mine = driver.find_element(By.ID, mine_id)
+            mine = driver.find_element(By.ID, "tile" + str(mine_id))
             actions.move_to_element(mine).context_click(mine).perform()
             flag_list.add(mine_id)
+    sorted(flag_list)
+    print(flag_list)
     print("flag100 end")
-
 
 def click_to_number(board,numbers):
     actions = ActionChains(driver)
     print("click_to_number begin")
+    print(numbers)
     for i in numbers:
         print(i)
-        a = driver.find_element(By.ID,"tile"+str(i+1))
-        if img_to_nums(a.get_attribute("src")) != 9:
-            actions.move_to_element(a) 
-            actions.click() 
-            actions.perform()
+        a = driver.find_element(By.ID,"tile"+str(i))
+        actions.move_to_element(a) 
+        actions.click() 
+        actions.perform()
     print("click_to_number end")
 
 
@@ -136,7 +135,7 @@ n = 0
 time.sleep(1)
 def test():
     board = get_matrix(weight,hight)
-    mines,numbers = work(weight,hight,board)
+    mines,numbers = work(board)
     flag100(mines)
     click_to_number(board,numbers)
     print(mines)
