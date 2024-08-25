@@ -2,8 +2,6 @@
 
 def get_neighbors(x, y, width, height):
     neighbors = []
-
-    # Пройдись по каждой ячейке вокруг данной ячейки (x, y)
     for i in range(-1, 2):
         for j in range(-1, 2):
             new_x, new_y = x + i, y + j

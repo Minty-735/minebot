@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from random import randint
 from selenium.webdriver.common.action_chains import ActionChains # импортируем класс ActionChains из модуля action_chains
 
-url = 'https://сапёр.com/' #ссылка на сайт
+url = 'https://сапёр.com/'
 
 
 
@@ -15,7 +15,7 @@ html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 
 
-element = driver.find_element_by_id("tile"+str(randint(40,60))) # находим элемент на странице по его id и присваиваем его переменной element
+element = driver.find_element_by_id("tile"+str(randint(40,60)))
 actions = ActionChains(driver) # создаем объект actions, который представляет набор действий с мышью и клавиатурой
 actions.move_to_element(element) # добавляем действие перемещения курсора на элемент в набор actions
 actions.click() # кликаем по элементу
